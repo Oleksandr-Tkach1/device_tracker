@@ -1,0 +1,1 @@
+https://medium.com/flutter-community/firebase-login-with-flutter-bloc-47455e6047b0
