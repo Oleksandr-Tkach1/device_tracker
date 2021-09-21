@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:device_tracker/helper/validators.dart';
+import 'package:device_tracker/login_system/login/bloc/login_event.dart';
+import 'package:device_tracker/login_system/login/bloc/login_state.dart';
 import 'package:device_tracker/repository/user_repository.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:device_tracker/login/bloc/login_event.dart';
-import 'package:device_tracker/login/bloc/login_state.dart';
 
 /// BLoC responsible for the business logic behind the login process. In particular this BLoC will
 /// map the incoming [LoginEvent] to the correct [LoginState].
@@ -21,7 +21,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   // Overriding transformEvents in order to debounce the EmailChanged and PasswordChanged events
   // so that we give the user some time to stop typing before validating the input.
   @override
-  Stream<Transition<LoginEvent, LoginState>> transformEvents(Stream<LoginEvent> events, TransitionFunction<LoginEvent, LoginState> transitionFn,) {
+  Stream<Transition<LoginEvent, LoginState>> transformEvents(Stream<LoginEvent> events, TransitionFunction<LoginEvent, LoginState> transitionFn) {
     final nonDebounceStream = events.where((event) {
       return (event is! EmailChanged && event is! PasswordChanged);
     });

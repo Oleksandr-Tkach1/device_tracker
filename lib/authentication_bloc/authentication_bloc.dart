@@ -3,13 +3,10 @@ import 'package:device_tracker/repository/user_repository.dart';
 import 'authentication_event.dart';
 import 'authentication_state.dart';
 
-class AuthenticationBloc
-    extends Bloc<AuthenticationEvent, AuthenticationState> {
+class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
   final UserRepository _userRepository;
 
-  AuthenticationBloc({required UserRepository userRepository})
-      : assert(userRepository != null),
-        _userRepository = userRepository, super(Uninitialized());
+  AuthenticationBloc({required UserRepository userRepository}) : assert(userRepository != null), _userRepository = userRepository, super(Uninitialized());
 
   @override
   AuthenticationState get initialState => Uninitialized();

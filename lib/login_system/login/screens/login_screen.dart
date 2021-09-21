@@ -1,8 +1,7 @@
-import 'package:device_tracker/login/bloc/login_bloc.dart';
+import 'package:device_tracker/login_system/login/bloc/login_bloc.dart';
 import 'package:device_tracker/repository/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'login_form.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -32,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       appBar: AppBar(title: Text('Login')),
       body: BlocProvider<LoginBloc>(
-        bloc: _loginBloc,
+        create: (context) => _loginBloc,
         child: LoginForm(userRepository: _userRepository),
       ),
     );
@@ -40,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void dispose() {
-    _loginBloc.add();
+    _loginBloc.close();
     super.dispose();
   }
 }
