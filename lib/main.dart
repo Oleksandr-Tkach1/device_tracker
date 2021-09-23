@@ -1,4 +1,4 @@
-import 'package:device_tracker/home_screens/home_screen.dart';
+import 'package:device_tracker/%20home_page/home_screen.dart';
 import 'package:device_tracker/home_screens/splash_screen.dart';
 import 'package:device_tracker/login_system/login/screens/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';

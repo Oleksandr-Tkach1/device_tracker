@@ -35,7 +35,7 @@ class _RegisterFormState extends State<RegisterForm> {
       listener: (BuildContext context, RegisterState state) {
         if (state.isSubmitting) {
           Scaffold.of(context)
-            ..hideCurrentSnackBar()
+            //..hideCurrentSnackBar()
             ..showSnackBar(
               SnackBar(
                 content: Row(
@@ -73,7 +73,7 @@ class _RegisterFormState extends State<RegisterForm> {
         bloc: _registerBloc,
         builder: (BuildContext context, RegisterState state) {
           return Padding(
-            padding: EdgeInsets.all(20),
+            padding: EdgeInsets.only(top: 180, left: 20, right: 20,),
             child: Form(
               child: ListView(
                 children: <Widget>[
@@ -102,6 +102,7 @@ class _RegisterFormState extends State<RegisterForm> {
                       return !state.isPasswordValid ? 'Invalid Password' : null;
                     },
                   ),
+                  SizedBox(height: 18),
                   RegisterButton(
                     onPressed: isRegisterButtonEnabled(state) ? _onFormSubmitted : null,
                   ),

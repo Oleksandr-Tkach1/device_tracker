@@ -88,8 +88,8 @@ class _LoginFormState extends State<LoginForm> {
               child: ListView(
                 children: <Widget>[
                   Padding(
-                    padding: EdgeInsets.symmetric(vertical: 20),
-                    child: Image.asset('assets/flutter_logo.png', height: 200),
+                    padding: EdgeInsets.symmetric(vertical: 80),
+                    //child: Image.asset('assets/flutter_logo.png', height: 200),
                   ),
                   TextFormField(
                     controller: _emailController,
