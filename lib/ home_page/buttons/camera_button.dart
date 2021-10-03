@@ -7,11 +7,11 @@ class CameraButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
-      color: Colors.blue,
+      color: Colors.white,
       shape: CircleBorder(),
       padding: EdgeInsets.all(7),
       onPressed: () => {},
-      child: Icon(Icons.camera_alt_outlined, size: 30, color: Colors.white,),
+      child: Icon(Icons.camera_alt_outlined, size: 30, color: Colors.blue,),
     );
   }
 }

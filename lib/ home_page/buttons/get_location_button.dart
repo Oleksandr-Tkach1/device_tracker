@@ -9,7 +9,7 @@ class GetLocationButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
-      color: Colors.blue,
+      color: Colors.white,
       shape: CircleBorder(),
       padding: EdgeInsets.all(7),
       //TODO
@@ -23,7 +23,7 @@ class GetLocationButton extends StatelessWidget {
           print(position.latitude);
         }
         //Navigator.pop(context);
-      },      child: Icon(Icons.location_on_outlined, size: 30, color: Colors.white,),
+      },      child: Icon(Icons.map, size: 30, color: Colors.green,),
     );
   }
 }

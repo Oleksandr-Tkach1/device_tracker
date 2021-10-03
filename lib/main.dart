@@ -1,4 +1,5 @@
 import 'package:device_tracker/%20home_page/home_screen.dart';
+import 'package:device_tracker/helper/device_inf.dart';
 import 'package:device_tracker/home_screens/splash_screen.dart';
 import 'package:device_tracker/login_system/login/screens/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -23,13 +24,14 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final UserRepository _userRepository = UserRepository();
-
+  final DeviceInfo deviceInfo = DeviceInfo();
   //Под вопросом
   late AuthenticationBloc _authenticationBloc;
 
   @override
   void initState() {
     super.initState();
+    deviceInfo.getModel();
     _authenticationBloc = AuthenticationBloc(userRepository: _userRepository);
     _authenticationBloc.add(AppStarted());
   }
@@ -49,7 +51,7 @@ class _MyAppState extends State<MyApp> {
               return LoginScreen(userRepository: _userRepository);
             }
             if (state is Authenticated) {
-              return HomeScreen(name: state.displayName);
+              return HomeScreen(name: state.displayName,);
             }
             else return Container(); // it has to return something, can't return null/nothing
           },

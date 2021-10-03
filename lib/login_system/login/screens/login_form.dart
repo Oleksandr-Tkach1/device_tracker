@@ -1,5 +1,6 @@
 import 'package:device_tracker/authentication_bloc/authentication_bloc.dart';
 import 'package:device_tracker/authentication_bloc/authentication_event.dart';
+//import 'package:device_tracker/helper/device_inf.dart';
 import 'package:device_tracker/login_system/login/bloc/login_bloc.dart';
 import 'package:device_tracker/login_system/login/bloc/login_event.dart';
 import 'package:device_tracker/login_system/login/bloc/login_state.dart';
@@ -23,6 +24,8 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  //DeviceInfo deviceInfo = DeviceInfo();
 
   late LoginBloc _loginBloc;
 
@@ -90,6 +93,18 @@ class _LoginFormState extends State<LoginForm> {
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 80),
                     //child: Image.asset('assets/flutter_logo.png', height: 200),
+                  ),
+                  TextFormField(
+                    controller: _emailController,
+                    decoration: InputDecoration(
+                      icon: Icon(Icons.account_box_rounded),
+                      labelText: "User name",
+                    ),
+                    autocorrect: false,
+                    autovalidate: true,
+                    validator: (_) {
+                      return !state.isEmailValid ? 'Invalid User name' : null;
+                    },
                   ),
                   TextFormField(
                     controller: _emailController,
