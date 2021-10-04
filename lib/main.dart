@@ -2,6 +2,7 @@ import 'package:device_tracker/%20home_page/home_screen.dart';
 import 'package:device_tracker/helper/device_inf.dart';
 import 'package:device_tracker/home_screens/splash_screen.dart';
 import 'package:device_tracker/login_system/login/screens/login_screen.dart';
+import 'package:device_tracker/login_system/register/screen/register_form.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,14 +25,15 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final UserRepository _userRepository = UserRepository();
-  final DeviceInfo deviceInfo = DeviceInfo();
   //Под вопросом
   late AuthenticationBloc _authenticationBloc;
 
+  //DeviceInfo deviceInfo = DeviceInfo();
+
   @override
   void initState() {
+    //deviceInfo.getModel();
     super.initState();
-    deviceInfo.getModel();
     _authenticationBloc = AuthenticationBloc(userRepository: _userRepository);
     _authenticationBloc.add(AppStarted());
   }

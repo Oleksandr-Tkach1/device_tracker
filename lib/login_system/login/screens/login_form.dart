@@ -1,5 +1,6 @@
 import 'package:device_tracker/authentication_bloc/authentication_bloc.dart';
 import 'package:device_tracker/authentication_bloc/authentication_event.dart';
+import 'package:device_tracker/helper/device_inf.dart';
 //import 'package:device_tracker/helper/device_inf.dart';
 import 'package:device_tracker/login_system/login/bloc/login_bloc.dart';
 import 'package:device_tracker/login_system/login/bloc/login_event.dart';
@@ -24,15 +25,13 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
-  //DeviceInfo deviceInfo = DeviceInfo();
-
+  DeviceInfo deviceInfo = DeviceInfo();
   late LoginBloc _loginBloc;
-
+  ///
+  TextEditingController? controller;
+  ///
   UserRepository get _userRepository => widget._userRepository;
-
   bool get isPopulated => _emailController.text.isNotEmpty && _passwordController.text.isNotEmpty;
-
   bool isLoginButtonEnabled(LoginState state) {
     return state.isFormValid && isPopulated && !state.isSubmitting;
   }
@@ -40,6 +39,7 @@ class _LoginFormState extends State<LoginForm> {
   @override
   void initState() {
     super.initState();
+    deviceInfo.getModel();
     _loginBloc = BlocProvider.of<LoginBloc>(context);
     _emailController.addListener(_onEmailChanged);
     _passwordController.addListener(_onPasswordChanged);
@@ -95,10 +95,12 @@ class _LoginFormState extends State<LoginForm> {
                     //child: Image.asset('assets/flutter_logo.png', height: 200),
                   ),
                   TextFormField(
-                    controller: _emailController,
+                    controller: controller = TextEditingController()..text = deviceInfo.android.toString(),
                     decoration: InputDecoration(
                       icon: Icon(Icons.account_box_rounded),
-                      labelText: "User name",
+                      labelText: 'The name of your device has already been entered here',
+                      //widget.androidName.toString(),
+                      //deviceInfo.android.toString(),
                     ),
                     autocorrect: false,
                     autovalidate: true,

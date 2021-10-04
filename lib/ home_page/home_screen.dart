@@ -10,7 +10,7 @@ class HomeScreen extends StatelessWidget {
   final String name;
   //final String deviceName;
 
-  DeviceInfo deviceInfo = DeviceInfo();
+  //DeviceInfo deviceInfo = DeviceInfo();
 
   HomeScreen({Key? key, required this.name}) : super(key: key);
 
