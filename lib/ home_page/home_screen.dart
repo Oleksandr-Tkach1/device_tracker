@@ -3,6 +3,7 @@ import 'package:device_tracker/%20home_page/buttons/get_location_button.dart';
 import 'package:device_tracker/authentication_bloc/authentication_bloc.dart';
 import 'package:device_tracker/authentication_bloc/authentication_event.dart';
 import 'package:device_tracker/helper/device_inf.dart';
+import 'package:device_tracker/search/screen_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,6 +12,8 @@ class HomeScreen extends StatelessWidget {
   //final String deviceName;
 
   //DeviceInfo deviceInfo = DeviceInfo();
+
+
 
   HomeScreen({Key? key, required this.name}) : super(key: key);
 
@@ -27,6 +30,13 @@ class HomeScreen extends StatelessWidget {
             },
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add, color: Colors.white, size: 45,
+        ),
+        onPressed: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context) => Search()));
+        },
       ),
       body: Column(
         //mainAxisAlignment: MainAxisAlignment.start,
@@ -50,12 +60,12 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
                   Positioned(
-                    top: 5,
+                    top: 6,
                     right: 43,
                       child: GetLocationButton()
                   ),
                   Positioned(
-                    top: 5,
+                    top: 6,
                     left: 45,
                       child: CameraButton()
                   ),

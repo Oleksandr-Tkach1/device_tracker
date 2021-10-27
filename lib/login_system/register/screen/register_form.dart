@@ -7,6 +7,7 @@ import 'package:device_tracker/login_system/register/bloc/register_event.dart';
 import 'package:device_tracker/login_system/register/bloc/register_state.dart';
 import 'package:device_tracker/login_system/register/button/register_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:device_tracker/helper/helper_functions.dart';
 
@@ -21,9 +22,9 @@ class RegisterForm extends StatefulWidget {
 class _RegisterFormState extends State<RegisterForm> {
   DeviceInfo deviceInfo = DeviceInfo();
   ///
-  TextEditingController? controller;
+  late TextEditingController controller = TextEditingController()..text;
   ///
-  final TextEditingController _userNameController = TextEditingController();
+  //final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   late RegisterBloc _registerBloc;
@@ -36,7 +37,7 @@ class _RegisterFormState extends State<RegisterForm> {
     @override
     void initState() {
       super.initState();
-      test();
+      //test();
       //deviceInfo.getModel();
       _registerBloc = BlocProvider.of<RegisterBloc>(context);
       _emailController.addListener(_onEmailChanged);
@@ -48,20 +49,21 @@ class _RegisterFormState extends State<RegisterForm> {
       return test();
     }
 
-  // signMeUP()  {
-  //   if (_emailController.text != null) {
-  //     Map<String, String> userInfoMap = {
-  //       'name' : controller!.text,
-  //       'email': _emailController.text,
-  //     };
-  //     databaseMethods.uploadUserInfo(userInfoMap);
-  //   }
-  //   else {
-  //     print("Failure email");
-  //   }
-  //   HelperFunctions.saveUserNameSharedPreference(_userNameController.text);
-  //   HelperFunctions.saveUserEmailSharedPreference(_emailController.text);
-  // }
+  signMeUP()  {
+    if (_emailController.text != null) {
+      Map<String, String> userInfoMap = {
+        'name' : controller.text,
+        'email': _emailController.text,
+        'password': _passwordController.text,
+      };
+      databaseMethods.uploadUserInfo(userInfoMap);
+    }
+    else {
+      print("Failure email");
+    }
+    HelperFunctions.saveUserNameSharedPreference(controller.text);
+    HelperFunctions.saveUserEmailSharedPreference(_emailController.text);
+  }
 
 
   @override
@@ -86,7 +88,7 @@ class _RegisterFormState extends State<RegisterForm> {
           }
           if (state.isSuccess) {
             ///
-            //signMeUP();
+            signMeUP();
             BlocProvider.of<AuthenticationBloc>(context).add(LoggedIn());
             Navigator.of(context).pop();
           }
@@ -116,9 +118,13 @@ class _RegisterFormState extends State<RegisterForm> {
                 child: ListView(
                   children: <Widget>[
                     TextFormField(
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(8),
+                      ],
                       controller:
                       //controller = TextEditingController()..text = widget.deviceName.toString(),
-                      controller = TextEditingController()..text = deviceInfo.android.toString(),
+                      //controller = TextEditingController()..text = deviceInfo.android.toString(),
+                      controller,
                       decoration: InputDecoration(
                         icon: Icon(Icons.account_box_rounded),
                         labelText: 'The name of your device has already been entered here',

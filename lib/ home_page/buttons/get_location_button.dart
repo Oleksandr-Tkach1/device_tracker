@@ -1,8 +1,10 @@
+import 'package:device_tracker/%20home_page/alert.dart';
 import 'package:device_tracker/geolocation.dart';
 import 'package:flutter/material.dart';
 
 class GetLocationButton extends StatelessWidget {
   final VoidCallback? _onPressed;
+  TextEditingController TextRoomId = TextEditingController();
   LocationInfo position = LocationInfo();
 
   GetLocationButton({Key? key, VoidCallback? onPressed}): _onPressed = onPressed, super(key: key);
@@ -14,16 +16,26 @@ class GetLocationButton extends StatelessWidget {
       padding: EdgeInsets.all(7),
       //TODO
       onPressed: () async {
-        //Navigate to CitySearchScreen
-        await position.getUserLocationData();
-        //TODO
-        if (position != null) {
-          //await BlocProvider.of<WeatherGeolocationBloc>(context).add(WeatherEventRequested(latitude: position.latitude, longitude: position.longitude));
-          print(position.longitude);
-          print(position.latitude);
-        }
-        //Navigator.pop(context);
-      },      child: Icon(Icons.map, size: 30, color: Colors.green,),
+
+    showDialog(
+    context: context,
+    builder: (BuildContext context)
+    {
+      return locationRequest(context, TextRoomId);
+    }
+    );
+
+        // //Navigate to CitySearchScreen
+        // await position.getUserLocationData();
+        // //TODO
+        // if (position != null) {
+        //   //await BlocProvider.of<WeatherGeolocationBloc>(context).add(WeatherEventRequested(latitude: position.latitude, longitude: position.longitude));
+        //   print(position.longitude);
+        //   print(position.latitude);
+        // }
+        // //Navigator.pop(context);
+      },
+      child: Icon(Icons.map, size: 30, color: Colors.green,),
     );
   }
 }
