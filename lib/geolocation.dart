@@ -1,29 +1,36 @@
-import 'package:location/location.dart';
+import 'dart:async';
+import 'package:background_location/background_location.dart';
+import 'package:workmanager/workmanager.dart';
 
 class LocationInfo {
-  late double longitude;
-  late double latitude;
+  late double? longitude;
+  late double? latitude;
 
   Future<void> getUserLocationData() async {
-    Location location = Location();
-    if (await Location().hasPermission() == null) {
-      if (await Location().requestPermission() != null) {
-        return;
-      }
-    }
-    location.changeSettings(accuracy: LocationAccuracy.high);
-    try {
-      var currentLocation = await location.getLocation();
-      longitude = currentLocation.longitude!;
-      latitude = currentLocation.latitude!;
-    } catch (e) {
-      print(e);
-    }
+      BackgroundLocation.getLocationUpdates((location) {
+        longitude = location.longitude;
+        latitude = location.latitude;
+      });
+    //await BackgroundLocation.startLocationService(distanceFilter: 5);
   }
 
-  Future getUserLocationAndGPS() async {
-    return await Location().requestService()
-        ? await Location().requestPermission()
-        : '';
+  static const fetchBackground = "fetchBackground";
+
+  void callbackDispatcher() {
+    Workmanager().executeTask((task, inputData) async {
+      switch (task) {
+        case fetchBackground:
+          BackgroundLocation.startLocationService(forceAndroidLocationManager: true);
+          ///
+          BackgroundLocation.getLocationUpdates((location) {
+            longitude = location.longitude;
+            latitude = location.latitude;
+          });
+          print(longitude);
+          print(latitude);
+          break;
+      }
+      return Future.value(true);
+    });
   }
 }

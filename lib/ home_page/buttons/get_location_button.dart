@@ -17,23 +17,23 @@ class GetLocationButton extends StatelessWidget {
       //TODO
       onPressed: () async {
 
-    showDialog(
-    context: context,
-    builder: (BuildContext context)
-    {
-      return locationRequest(context, TextRoomId);
-    }
-    );
+    // showDialog(
+    // context: context,
+    // builder: (BuildContext context)
+    // {
+    //   return locationRequest(context, TextRoomId);
+    // }
+    // );
 
-        // //Navigate to CitySearchScreen
-        // await position.getUserLocationData();
-        // //TODO
-        // if (position != null) {
-        //   //await BlocProvider.of<WeatherGeolocationBloc>(context).add(WeatherEventRequested(latitude: position.latitude, longitude: position.longitude));
-        //   print(position.longitude);
-        //   print(position.latitude);
-        // }
-        // //Navigator.pop(context);
+        //Navigate to CitySearchScreen
+        await position.getUserLocationData();
+        //TODO
+        if (position != null) {
+          //await BlocProvider.of<WeatherGeolocationBloc>(context).add(WeatherEventRequested(latitude: position.latitude, longitude: position.longitude));
+          print(position.longitude);
+          print(position.latitude);
+        }
+        //Navigator.pop(context);
       },
       child: Icon(Icons.map, size: 30, color: Colors.green,),
     );

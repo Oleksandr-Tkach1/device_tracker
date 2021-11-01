@@ -1,21 +1,57 @@
+import 'dart:async';
+import 'package:background_location/background_location.dart';
 import 'package:device_tracker/%20home_page/buttons/camera_button.dart';
 import 'package:device_tracker/%20home_page/buttons/get_location_button.dart';
 import 'package:device_tracker/authentication_bloc/authentication_bloc.dart';
 import 'package:device_tracker/authentication_bloc/authentication_event.dart';
+import 'package:device_tracker/geolocation.dart';
 import 'package:device_tracker/helper/device_inf.dart';
 import 'package:device_tracker/search/screen_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:workmanager/workmanager.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   final String name;
-  //final String deviceName;
-
-  //DeviceInfo deviceInfo = DeviceInfo();
-
 
 
   HomeScreen({Key? key, required this.name}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+
+
+class _HomeScreenState extends State<HomeScreen> {
+///
+  late double? longitude;
+  late double? latitude;
+  LocationInfo locationInfo = LocationInfo();
+
+  @override
+  void initState() {
+    //BackgroundLocation.startLocationService(forceAndroidLocationManager: true);
+    //onCallback();
+    super.initState();
+    ///
+    Workmanager().initialize(
+      locationInfo.callbackDispatcher,
+      isInDebugMode: true,
+    );
+    Workmanager().registerPeriodicTask(
+      "1",
+      LocationInfo.fetchBackground,
+      frequency: Duration(seconds: 3),
+    );
+  }
+
+
+  void onCallback(){
+    Timer(Duration(seconds:  3), () {
+      //locationInfo.getUserLocationData();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +109,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ],
           ),
-          Center(child: Text('Welcome $name!')),
+          Center(child: Text('Welcome ${widget.name}!')),
 
           //Center(child: Text(deviceName.toString() != null ? deviceName.toString() : 'none')),
         ],

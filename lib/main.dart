@@ -1,3 +1,4 @@
+import 'package:background_location/background_location.dart';
 import 'package:device_tracker/%20home_page/home_screen.dart';
 import 'package:device_tracker/helper/device_inf.dart';
 import 'package:device_tracker/home_screens/splash_screen.dart';
@@ -32,8 +33,8 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    //deviceInfo.getModel();
     super.initState();
+    BackgroundLocation.setAndroidNotification();
     _authenticationBloc = AuthenticationBloc(userRepository: _userRepository);
     _authenticationBloc.add(AppStarted());
   }
