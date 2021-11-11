@@ -38,15 +38,10 @@ class _RegisterFormState extends State<RegisterForm> {
     void initState() {
       super.initState();
       //test();
-      //deviceInfo.getModel();
+      deviceInfo.getModel();
       _registerBloc = BlocProvider.of<RegisterBloc>(context);
       _emailController.addListener(_onEmailChanged);
       _passwordController.addListener(_onPasswordChanged);
-    }
-
-  Future<void> test()async{
-      await deviceInfo.getModel();
-      return test();
     }
 
   signMeUP()  {
@@ -122,9 +117,10 @@ class _RegisterFormState extends State<RegisterForm> {
                         LengthLimitingTextInputFormatter(8),
                       ],
                       controller:
+                      controller = TextEditingController()..text = deviceInfo.android.toString(),
                       //controller = TextEditingController()..text = widget.deviceName.toString(),
                       //controller = TextEditingController()..text = deviceInfo.android.toString(),
-                      controller,
+                      //controller,
                       decoration: InputDecoration(
                         icon: Icon(Icons.account_box_rounded),
                         labelText: 'The name of your device has already been entered here',
@@ -132,7 +128,7 @@ class _RegisterFormState extends State<RegisterForm> {
                       autocorrect: false,
                       autovalidate: true,
                       validator: (_) {
-                        return !state.isEmailValid ? 'Invalid User name' : null;
+                        return controller == null ? 'Invalid User name' : null;
                       },
                     ),
                     TextFormField(

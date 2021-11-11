@@ -17,10 +17,18 @@ import 'authentication_bloc/authentication_state.dart';
 import 'authentication_bloc/simple_bloc_delegate.dart';
 import 'repository/user_repository.dart';
 
-main() async{
+Future <void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await BackgroundLocation.startLocationService();
+  ///
+  await Workmanager().initialize(
+    callbackDispatcher,
+    //isInDebugMode: true
+  );
+  ///
+  // await Firebase.initializeApp();
+  // await BackgroundLocation.startLocationService();
   Bloc.observer = SimpleBlocDelegate();
   runApp(MyApp());
 }
@@ -34,21 +42,28 @@ class _MyAppState extends State<MyApp> {
   //Под вопросом
   late AuthenticationBloc _authenticationBloc;
 
-  //DeviceInfo deviceInfo = DeviceInfo();
 
   @override
   void initState() {
+    //eventLoop();
     super.initState();
     BackgroundLocation.setAndroidNotification();
-    ///
-    Workmanager().initialize(
-        callbackDispatcher,
-        //isInDebugMode: true
-    );
-    ///
+
     _authenticationBloc = AuthenticationBloc(userRepository: _userRepository);
     _authenticationBloc.add(AppStarted());
   }
+
+
+ Future <void> eventLoop() async{
+   //await BackgroundLocation.startLocationService();
+   // ///
+   // Workmanager().initialize(
+   //   callbackDispatcher,
+   //   //isInDebugMode: true
+   // );
+   // ///
+  }
+
 
   @override
   Widget build(BuildContext context) {

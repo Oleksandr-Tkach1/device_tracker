@@ -9,6 +9,7 @@ import 'package:device_tracker/helper/device_inf.dart';
 import 'package:device_tracker/search/screen_search.dart';
 import 'package:device_tracker/services/background_workmanager.dart';
 import 'package:device_tracker/services/firebase_data_transfer.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:workmanager/workmanager.dart';
@@ -27,16 +28,12 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 ///
-  late double? longitude;
-  late double? latitude;
+//   late double? longitude;
+//   late double? latitude;
   LocationInfo locationInfo = LocationInfo();
 
   @override
   void initState() {
-    // Workmanager().initialize(
-    //   callbackDispatcher,
-    //   isInDebugMode: true,
-    // );
     Workmanager().registerPeriodicTask(
       "1",
       simplePeriodicTask,
@@ -46,17 +43,11 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
-  // void onCallback(){
-  //   Timer.periodic(Duration(minutes:  3), (Timer t) {
-  //     BackgroundLocation.getLocationUpdates((location) {
-  //       longitude = location.longitude;
-  //       latitude = location.latitude;
-  //     });
-  //     print(longitude);
-  //     print(latitude);
-  //     ///
-  //     return firebaseDataTransfer(latitude: latitude, longitude: longitude);
-  //   });
+  // void onCallback() async {
+  //   ///
+  //   WidgetsFlutterBinding.ensureInitialized();
+  //   await Firebase.initializeApp();
+  //   ///
   // }
 
 

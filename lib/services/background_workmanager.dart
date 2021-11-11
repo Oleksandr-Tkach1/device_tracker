@@ -9,20 +9,20 @@ Future<void> callbackDispatcher() async {
   late double? longitude;
   late double? latitude;
 
-  Workmanager().executeTask((task, inputData) {
+  Workmanager().executeTask((task, inputData) async{
     switch (task) {
       case simplePeriodicTask:
-          BackgroundLocation.getLocationUpdates((location) {
+         await BackgroundLocation.getLocationUpdates((location) async {
             longitude = location.longitude;
             latitude = location.latitude;
             print(longitude);
             print(latitude);
-            // return firebaseDataTransfer(latitude: latitude, longitude: longitude);
+            return await firebaseDataTransfer(latitude: latitude, longitude: longitude);
           });
           ///
           break;
     }
     return Future.value(true);
   });
-  return await firebaseDataTransfer(latitude: latitude, longitude: longitude);
+  //return await firebaseDataTransfer(latitude: latitude, longitude: longitude);
 }

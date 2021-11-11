@@ -104,9 +104,10 @@ class _LoginFormState extends State<LoginForm> {
                     ),
                     autocorrect: false,
                     autovalidate: true,
-                    validator: (_) {
-                      return !state.isEmailValid ? 'Invalid User name' : null;
-                    },
+                    ///
+                    // validator: (_) {
+                    //   return !state.isEmailValid ? 'Invalid User name' : null;
+                    // },
                   ),
                   TextFormField(
                     controller: _emailController,
