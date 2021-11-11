@@ -7,6 +7,8 @@ import 'package:device_tracker/authentication_bloc/authentication_event.dart';
 import 'package:device_tracker/geolocation.dart';
 import 'package:device_tracker/helper/device_inf.dart';
 import 'package:device_tracker/search/screen_search.dart';
+import 'package:device_tracker/services/background_workmanager.dart';
+import 'package:device_tracker/services/firebase_data_transfer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:workmanager/workmanager.dart';
@@ -31,27 +33,32 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    //BackgroundLocation.startLocationService(forceAndroidLocationManager: true);
-    //onCallback();
-    super.initState();
-    ///
-    Workmanager().initialize(
-      locationInfo.callbackDispatcher,
-      isInDebugMode: true,
-    );
+    // Workmanager().initialize(
+    //   callbackDispatcher,
+    //   isInDebugMode: true,
+    // );
     Workmanager().registerPeriodicTask(
       "1",
-      LocationInfo.fetchBackground,
-      frequency: Duration(seconds: 3),
+      simplePeriodicTask,
+      frequency: Duration(minutes: 15),
     );
+    //onCallback();
+    super.initState();
   }
 
+  // void onCallback(){
+  //   Timer.periodic(Duration(minutes:  3), (Timer t) {
+  //     BackgroundLocation.getLocationUpdates((location) {
+  //       longitude = location.longitude;
+  //       latitude = location.latitude;
+  //     });
+  //     print(longitude);
+  //     print(latitude);
+  //     ///
+  //     return firebaseDataTransfer(latitude: latitude, longitude: longitude);
+  //   });
+  // }
 
-  void onCallback(){
-    Timer(Duration(seconds:  3), () {
-      //locationInfo.getUserLocationData();
-    });
-  }
 
   @override
   Widget build(BuildContext context) {

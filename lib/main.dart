@@ -1,12 +1,16 @@
+import 'dart:async';
+
 import 'package:background_location/background_location.dart';
 import 'package:device_tracker/%20home_page/home_screen.dart';
 import 'package:device_tracker/helper/device_inf.dart';
 import 'package:device_tracker/home_screens/splash_screen.dart';
 import 'package:device_tracker/login_system/login/screens/login_screen.dart';
 import 'package:device_tracker/login_system/register/screen/register_form.dart';
+import 'package:device_tracker/services/background_workmanager.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:workmanager/workmanager.dart';
 import 'authentication_bloc/authentication_bloc.dart';
 import 'authentication_bloc/authentication_event.dart';
 import 'authentication_bloc/authentication_state.dart';
@@ -16,6 +20,7 @@ import 'repository/user_repository.dart';
 main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await BackgroundLocation.startLocationService();
   Bloc.observer = SimpleBlocDelegate();
   runApp(MyApp());
 }
@@ -35,6 +40,12 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     BackgroundLocation.setAndroidNotification();
+    ///
+    Workmanager().initialize(
+        callbackDispatcher,
+        //isInDebugMode: true
+    );
+    ///
     _authenticationBloc = AuthenticationBloc(userRepository: _userRepository);
     _authenticationBloc.add(AppStarted());
   }
