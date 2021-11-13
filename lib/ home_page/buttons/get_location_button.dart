@@ -1,5 +1,6 @@
 import 'package:device_tracker/%20home_page/alert.dart';
 import 'package:device_tracker/geolocation.dart';
+import 'package:device_tracker/services/firebase_data_transfer.dart';
 import 'package:flutter/material.dart';
 
 class GetLocationButton extends StatelessWidget {
@@ -32,6 +33,7 @@ class GetLocationButton extends StatelessWidget {
           //await BlocProvider.of<WeatherGeolocationBloc>(context).add(WeatherEventRequested(latitude: position.latitude, longitude: position.longitude));
           print(position.longitude);
           print(position.latitude);
+          await firebaseDataTransfer(longitude: position.longitude, latitude: position.latitude);
         }
         //Navigator.pop(context);
       },
