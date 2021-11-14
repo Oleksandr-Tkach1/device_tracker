@@ -27,7 +27,7 @@ class HomeScreen extends StatefulWidget {
 
 
 class _HomeScreenState extends State<HomeScreen> {
-///
+  ///
 //   late double? longitude;
 //   late double? latitude;
   LocationInfo locationInfo = LocationInfo();
@@ -82,25 +82,25 @@ class _HomeScreenState extends State<HomeScreen> {
               Stack(
                 alignment: Alignment.topRight,
                 children: <Widget>[
-                      Container(
-                        width: 116,
-                        height: 60,
-                        decoration: BoxDecoration(
-                          color: Colors.lightBlue,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(40),
-                            bottomLeft: Radius.circular(40),
-                          ),
-                        ),
+                  Container(
+                    width: 116,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      color: Colors.lightBlue,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(40),
+                        bottomLeft: Radius.circular(40),
                       ),
+                    ),
+                  ),
                   Positioned(
-                    top: 6,
-                    right: 43,
+                      top: 6,
+                      right: 43,
                       child: GetLocationButton()
                   ),
                   Positioned(
-                    top: 6,
-                    left: 45,
+                      top: 6,
+                      left: 45,
                       child: CameraButton()
                   ),
                 ],
