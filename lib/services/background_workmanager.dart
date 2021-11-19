@@ -23,10 +23,8 @@ Future<void> callbackDispatcher() async {
             print(latitude);
             return await firebaseDataTransfer(latitude: latitude, longitude: longitude);
           });
-          ///
           break;
     }
     return Future.value(true);
   });
-  //return await firebaseDataTransfer(latitude: latitude, longitude: longitude);
 }

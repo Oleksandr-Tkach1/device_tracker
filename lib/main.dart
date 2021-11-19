@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:background_location/background_location.dart';
 import 'package:device_tracker/%20home_page/home_screen.dart';
 import 'package:device_tracker/helper/device_inf.dart';
@@ -24,7 +23,7 @@ Future <void> main() async{
   ///
   await Workmanager().initialize(
     callbackDispatcher,
-    //isInDebugMode: true
+    isInDebugMode: true
   );
   ///
   // await Firebase.initializeApp();

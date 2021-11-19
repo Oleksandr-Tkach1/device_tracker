@@ -1,15 +1,10 @@
-import 'dart:async';
-import 'package:background_location/background_location.dart';
 import 'package:device_tracker/%20home_page/buttons/camera_button.dart';
 import 'package:device_tracker/%20home_page/buttons/get_location_button.dart';
 import 'package:device_tracker/authentication_bloc/authentication_bloc.dart';
 import 'package:device_tracker/authentication_bloc/authentication_event.dart';
 import 'package:device_tracker/geolocation.dart';
-import 'package:device_tracker/helper/device_inf.dart';
 import 'package:device_tracker/search/screen_search.dart';
 import 'package:device_tracker/services/background_workmanager.dart';
-import 'package:device_tracker/services/firebase_data_transfer.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:workmanager/workmanager.dart';
@@ -17,19 +12,13 @@ import 'package:workmanager/workmanager.dart';
 class HomeScreen extends StatefulWidget {
   final String name;
 
-
   HomeScreen({Key? key, required this.name}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-
-
 class _HomeScreenState extends State<HomeScreen> {
-  ///
-//   late double? longitude;
-//   late double? latitude;
   LocationInfo locationInfo = LocationInfo();
 
   @override
@@ -39,17 +28,8 @@ class _HomeScreenState extends State<HomeScreen> {
       simplePeriodicTask,
       frequency: Duration(minutes: 15),
     );
-    //onCallback();
     super.initState();
   }
-
-  // Future<void> onCallback() async {
-  //   ///
-  //   WidgetsFlutterBinding.ensureInitialized();
-  //   await Firebase.initializeApp();
-  //   ///
-  // }
-
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +53,6 @@ class _HomeScreenState extends State<HomeScreen> {
         },
       ),
       body: Column(
-        //mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -108,8 +87,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
           Center(child: Text('Welcome ${widget.name}!')),
-
-          //Center(child: Text(deviceName.toString() != null ? deviceName.toString() : 'none')),
         ],
       ),
     );
