@@ -21,9 +21,7 @@ class RegisterForm extends StatefulWidget {
 
 class _RegisterFormState extends State<RegisterForm> {
   DeviceInfo deviceInfo = DeviceInfo();
-  ///
   late TextEditingController controller = TextEditingController()..text;
-  ///
   //final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -37,7 +35,6 @@ class _RegisterFormState extends State<RegisterForm> {
     @override
     void initState() {
       super.initState();
-      //test();
       deviceInfo.getModel();
       _registerBloc = BlocProvider.of<RegisterBloc>(context);
       _emailController.addListener(_onEmailChanged);

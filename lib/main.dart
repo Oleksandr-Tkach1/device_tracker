@@ -17,18 +17,11 @@ import 'authentication_bloc/authentication_state.dart';
 import 'authentication_bloc/simple_bloc_delegate.dart';
 import 'repository/user_repository.dart';
 
-Future <void> main() async{
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await BackgroundLocation.startLocationService();
-  ///
-  await Workmanager().initialize(
-    callbackDispatcher,
-    //isInDebugMode: true
-  );
-  ///
-  // await Firebase.initializeApp();
-  // await BackgroundLocation.startLocationService();
+  await Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
   Bloc.observer = SimpleBlocDelegate();
   runApp(MyApp());
 }
@@ -39,31 +32,17 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final UserRepository _userRepository = UserRepository();
+
   //Под вопросом
   late AuthenticationBloc _authenticationBloc;
 
-
   @override
   void initState() {
-    //eventLoop();
     super.initState();
     BackgroundLocation.setAndroidNotification();
-
     _authenticationBloc = AuthenticationBloc(userRepository: _userRepository);
     _authenticationBloc.add(AppStarted());
   }
-
-
- Future <void> eventLoop() async{
-   //await BackgroundLocation.startLocationService();
-   // ///
-   // Workmanager().initialize(
-   //   callbackDispatcher,
-   //   //isInDebugMode: true
-   // );
-   // ///
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -80,17 +59,20 @@ class _MyAppState extends State<MyApp> {
               return LoginScreen(userRepository: _userRepository);
             }
             if (state is Authenticated) {
-              return HomeScreen(name: state.displayName,);
-            }
-            else return Container(); // it has to return something, can't return null/nothing
+              return HomeScreen(
+                name: state.displayName,
+              );
+            } else
+              return Container(); // it has to return something, can't return null/nothing
           },
         ),
       ),
     );
   }
+
   @override
-   void dispose() {
-     _authenticationBloc.close();
-     super.dispose();
-   }
+  void dispose() {
+    _authenticationBloc.close();
+    super.dispose();
+  }
 }

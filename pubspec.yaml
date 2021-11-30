@@ -37,6 +37,7 @@ dependencies:
   uuid: ^3.0.4
   background_location: ^0.8.1
   workmanager: ^0.4.1
+  google_maps_flutter: ^2.1.1
 
 dev_dependencies:
   flutter_test:

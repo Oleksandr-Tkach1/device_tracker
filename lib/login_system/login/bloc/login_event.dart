@@ -49,7 +49,7 @@ class Submitted extends LoginEvent {
   String toString() => 'Submitted { email: $email, password: $password }';
 }
 
-class LoginWithGooglePressed extends LoginEvent {}
+// class LoginWithGooglePressed extends LoginEvent {}
 
 class LoginWithCredentialsPressed extends LoginEvent {
   final String email;

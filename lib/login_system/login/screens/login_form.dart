@@ -27,9 +27,7 @@ class _LoginFormState extends State<LoginForm> {
   final TextEditingController _passwordController = TextEditingController();
   DeviceInfo deviceInfo = DeviceInfo();
   late LoginBloc _loginBloc;
-  ///
   TextEditingController? controller;
-  ///
   UserRepository get _userRepository => widget._userRepository;
   bool get isPopulated => _emailController.text.isNotEmpty && _passwordController.text.isNotEmpty;
   bool isLoginButtonEnabled(LoginState state) {
@@ -38,12 +36,25 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   void initState() {
-    super.initState();
     deviceInfo.getModel();
+    super.initState();
+    test();
+    setState(() {
+      test();
+      controller = TextEditingController()..text = deviceInfo.android.toString();
+    });
     _loginBloc = BlocProvider.of<LoginBloc>(context);
     _emailController.addListener(_onEmailChanged);
     _passwordController.addListener(_onPasswordChanged);
   }
+
+  ///
+   test() async{
+    setState(() {
+      controller = TextEditingController()..text = deviceInfo.android.toString();
+    });
+   }
+  ///
 
   @override
   Widget build(BuildContext context) {
@@ -92,9 +103,9 @@ class _LoginFormState extends State<LoginForm> {
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 80),
-                    //child: Image.asset('assets/flutter_logo.png', height: 200),
                   ),
                   TextFormField(
+                    // controller: controller = TextEditingController()..text = deviceInfo.android.toString(),
                     controller: controller = TextEditingController()..text = deviceInfo.android.toString(),
                     decoration: InputDecoration(
                       icon: Icon(Icons.account_box_rounded),

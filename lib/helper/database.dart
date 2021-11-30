@@ -8,6 +8,12 @@ class DatabaseMethods{
         .get();
   }
 
+  getUserByData() async {
+    return await FirebaseFirestore.instance
+        .collection('users')
+        .get();
+  }
+
   getUserByUserEmail(String userEmail) async {
   return await FirebaseFirestore.instance
       .collection('users')
