@@ -5,8 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class GoogleMapScreen extends StatefulWidget {
-  late double? longitude;
-  late double? latitude;
+  var latitude;
+  var longitude;
+
+  // final double longitude;
+  // final double latitude;
   // LatLng? kMapCenter = LatLng(19.018255973653343, 72.84793849278007);
 
 
@@ -18,26 +21,36 @@ class GoogleMapScreen extends StatefulWidget {
 
 class _GoogleMapScreenState extends State<GoogleMapScreen> {
 
+  late GoogleMapController mapController;
+  late final double longitude;
+  late final double latitude;
+
   DatabaseMethods databaseMethods = DatabaseMethods();
   GoogleService googleService = GoogleService();
 
-  // late QuerySnapshot searchSnapshot;
-  //
+  late QuerySnapshot searchSnapshot;
+
   // Widget searchList(BuildContext globalContext) {
+  //   Set<Marker> _markers= {};
   //   return ListView.builder(
   //         itemCount: searchSnapshot.docs.length,
   //         shrinkWrap: true,
   //         itemBuilder: (context, index) {
-  //           return getFirestoreRequest(
-  //             longitude: searchSnapshot.docs[index]["longitude"],
-  //             latitude: searchSnapshot.docs[index]["latitude"],
-  //           );
+  //         return CameraPosition(
+  //             target: LatLng(
+  //             longitude,
+  //             latitude,
+  //         ));
+  //         // getFirestoreRequest(
+  //           //   longitude: searchSnapshot.docs[index]["longitude"],
+  //           //   latitude: searchSnapshot.docs[index]["latitude"],
+  //           // );
   //         });
   // }
 
-  late LatLng kMapCenter = LatLng(googleService.latitude, googleService.longitude);
+  //static LatLng kMapCenter = LatLng(24.150, -110.32);
 
-  late CameraPosition _kInitialPosition = CameraPosition(target: LatLng(googleService.latitude, googleService.longitude), zoom: 11.0, tilt: 0, bearing: 0);
+  // static final CameraPosition _kInitialPosition = CameraPosition(target: kMapCenter, zoom: 11.0, tilt: 0, bearing: 0);
 
   // @override
   // void initState() {
@@ -51,14 +64,24 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 
   @override
   Widget build(BuildContext context) {
+                                                                ///
+    var _kInitialPosition = CameraPosition(target: LatLng(24.150, -110.32), zoom: 11.0, tilt: 0, bearing: 0);
     return Scaffold(
       appBar: AppBar(
         title: Text('Google Maps Demo'),
       ),
       body: GoogleMap(
+        myLocationEnabled: true,
         initialCameraPosition: _kInitialPosition,
+        //markers: searchList(globalContext),
+        onMapCreated: _onMapCreated,
       ),
     );
+  }
+  _onMapCreated (GoogleMapController controller){
+    setState(() {
+      mapController = controller;
+    });
   }
 }
 

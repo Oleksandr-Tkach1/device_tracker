@@ -1,3 +1,4 @@
+import 'package:device_tracker/google_map/screen/googl_map_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -34,7 +35,8 @@ class GoogleService {
   Widget getFirestoreRequest ({latitude, longitude}){
     // double? latitude;
     // double? longitude;
-    GoogleService(longitude: longitude, latitude: latitude);
+    GoogleMapScreen(latitude: latitude, longitude: longitude,);
+    //GoogleService(longitude: longitude, latitude: latitude);
     return Container();
   }
 }
