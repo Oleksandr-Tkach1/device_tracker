@@ -19,7 +19,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   late GoogleMapController mapController;
   DatabaseMethods databaseMethods = DatabaseMethods();
   GoogleService googleService = GoogleService();
-  late Stream chatRoomsStream;
+  //late Stream stream;
+  CollectionReference stream = FirebaseFirestore.instance.collection('ChatRoom');
 
 
   // getLocation() async{
@@ -36,10 +37,10 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   // }
 
 
-   getLocation() async{
+   getLocation() {
     return StreamBuilder<QuerySnapshot>(
-        //stream: chatRoomsStream,
-        builder: (BuildContext  context, snapshot) {
+        stream: stream.snapshots(),
+        builder: (context, snapshot) {
           return snapshot.hasData ? ListView.builder(
               itemCount: snapshot.data!.docs.length,
               itemBuilder: (context, index) {
@@ -48,7 +49,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                       snapshot.data!.docs[index]["latitude"],
                       snapshot.data!.docs[index]["longitude"],
                     );
-                  }) : Center(child: Text('No chats', style: TextStyle(fontSize: 25, color: Colors.white),));
+                  }) : Center(child: Text('Error', style: TextStyle(fontSize: 25, color: Colors.white),));
         }
     );
   }
@@ -137,11 +138,11 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       mapController = controller;
     });
   }
-   capPos() async{
+   capPos() {
     CameraPosition(
         target: LatLng(
-            await widget.latitude!.toDouble(),
-            await widget.longitude!.toDouble()),
+             widget.latitude!.toDouble(),
+             widget.longitude!.toDouble()),
         zoom: 11.0,
         tilt: 0,
         bearing: 0);
