@@ -10,7 +10,7 @@ class DatabaseMethods{
 
   getUserByData() async {
     return await FirebaseFirestore.instance
-        .collection('users')
+        .collection('ChatRoom')
         .get();
   }
 

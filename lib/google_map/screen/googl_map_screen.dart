@@ -5,15 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class GoogleMapScreen extends StatefulWidget {
-  var latitude;
-  var longitude;
+ final double? latitude;
+ final double? longitude;
 
-  // final double longitude;
-  // final double latitude;
-  // LatLng? kMapCenter = LatLng(19.018255973653343, 72.84793849278007);
-
-
-  GoogleMapScreen({Key? key, this.latitude, this.longitude}) : super(key: key);
+  GoogleMapScreen({this.latitude, this.longitude});
 
   @override
   _GoogleMapScreenState createState() => _GoogleMapScreenState();
@@ -22,13 +17,63 @@ class GoogleMapScreen extends StatefulWidget {
 class _GoogleMapScreenState extends State<GoogleMapScreen> {
 
   late GoogleMapController mapController;
-  late final double longitude;
-  late final double latitude;
-
   DatabaseMethods databaseMethods = DatabaseMethods();
   GoogleService googleService = GoogleService();
+  late Stream chatRoomsStream;
 
-  late QuerySnapshot searchSnapshot;
+
+  // getLocation() async{
+  //   QuerySnapshot snapshot = await FirebaseFirestore.instance
+  //       .collection('ChatRoom')
+  //       .get();
+  //       //.snapshots();
+  //   snapshot.docs.forEach((docs) {
+  //     snapshot.docs.asMap().forEach((index, data) {
+  //       longitude: snapshot.docs[index]["longitude"];
+  //       latitude: snapshot.docs[index]["latitude"];
+  //     });
+  //   });
+  // }
+
+
+   getLocation() async{
+    return StreamBuilder<QuerySnapshot>(
+        //stream: chatRoomsStream,
+        builder: (BuildContext  context, snapshot) {
+          return snapshot.hasData ? ListView.builder(
+              itemCount: snapshot.data!.docs.length,
+              itemBuilder: (context, index) {
+                print('DEBUG DATA: ' + snapshot.data!.docs[index].data().toString());
+                    return getFirestoreRequest(
+                      snapshot.data!.docs[index]["latitude"],
+                      snapshot.data!.docs[index]["longitude"],
+                    );
+                  }) : Center(child: Text('No chats', style: TextStyle(fontSize: 25, color: Colors.white),));
+        }
+    );
+  }
+
+  // late QuerySnapshot searchSnapshot;
+  //
+  // Widget searchList(BuildContext globalContext) {
+  //   return ListView.builder(
+  //       itemCount: searchSnapshot.docs.length,
+  //       shrinkWrap: true,
+  //       itemBuilder: (context, index) {
+  //         return getFirestoreRequest(
+  //           longitude: searchSnapshot.docs[index]["longitude"],
+  //           latitude: searchSnapshot.docs[index]["latitude"],
+  //         );
+  //       });
+  // }
+
+  Widget getFirestoreRequest (latitude, longitude){
+    double? latitude;
+    double? longitude;
+    return GoogleMapScreen(latitude: latitude, longitude: longitude,);
+    //return Container();
+  }
+
 
   // Widget searchList(BuildContext globalContext) {
   //   Set<Marker> _markers= {};
@@ -65,16 +110,25 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   @override
   Widget build(BuildContext context) {
                                                                 ///
-    var _kInitialPosition = CameraPosition(target: LatLng(24.150, -110.32), zoom: 11.0, tilt: 0, bearing: 0);
+    // var _kInitialPosition = CameraPosition(target: LatLng(widget.latitude!.toDouble(), widget.longitude!.toDouble()), zoom: 11.0, tilt: 0, bearing: 0);
+    getLocation();
+    //var _kInitialPosition = capPos();
     return Scaffold(
       appBar: AppBar(
         title: Text('Google Maps Demo'),
       ),
-      body: GoogleMap(
-        myLocationEnabled: true,
-        initialCameraPosition: _kInitialPosition,
-        //markers: searchList(globalContext),
-        onMapCreated: _onMapCreated,
+      body: Column(
+        children: [
+          //getLocation(),
+          // fireFunk(),
+          // searchList(context),
+          GoogleMap(
+            myLocationEnabled: true,
+            initialCameraPosition: capPos(),
+            //markers: searchList(globalContext),
+            onMapCreated: _onMapCreated,
+          ),
+        ],
       ),
     );
   }
@@ -82,6 +136,15 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     setState(() {
       mapController = controller;
     });
+  }
+   capPos() async{
+    CameraPosition(
+        target: LatLng(
+            await widget.latitude!.toDouble(),
+            await widget.longitude!.toDouble()),
+        zoom: 11.0,
+        tilt: 0,
+        bearing: 0);
   }
 }
 

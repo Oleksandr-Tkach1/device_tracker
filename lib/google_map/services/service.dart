@@ -20,23 +20,20 @@ class GoogleService {
 
   late QuerySnapshot searchSnapshot;
 
-  Widget searchList(BuildContext globalContext) {
-    return ListView.builder(
-        itemCount: searchSnapshot.docs.length,
-        shrinkWrap: true,
-        itemBuilder: (context, index) {
-          return getFirestoreRequest(
-            longitude: searchSnapshot.docs[index]["longitude"],
-            latitude: searchSnapshot.docs[index]["latitude"],
-          );
-        });
-  }
-
-  Widget getFirestoreRequest ({latitude, longitude}){
-    // double? latitude;
-    // double? longitude;
-    GoogleMapScreen(latitude: latitude, longitude: longitude,);
-    //GoogleService(longitude: longitude, latitude: latitude);
-    return Container();
-  }
+  // Widget searchList(BuildContext globalContext) {
+  //   return ListView.builder(
+  //       itemCount: searchSnapshot.docs.length,
+  //       shrinkWrap: true,
+  //       itemBuilder: (context, index) {
+  //         return getFirestoreRequest(
+  //           longitude: searchSnapshot.docs[index]["longitude"],
+  //           latitude: searchSnapshot.docs[index]["latitude"],
+  //         );
+  //       });
+  // }
+  //
+  // Widget getFirestoreRequest ({latitude, longitude}){
+  //   GoogleMapScreen(latitude: latitude, longitude: longitude,);
+  //   return Container();
+  // }
 }
