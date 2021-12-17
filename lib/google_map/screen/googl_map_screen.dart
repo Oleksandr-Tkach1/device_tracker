@@ -49,24 +49,11 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                       snapshot.data!.docs[index]["latitude"],
                       snapshot.data!.docs[index]["longitude"],
                     );
-                  }) : Center(child: Text('Error', style: TextStyle(fontSize: 25, color: Colors.white),));
+                  }) : Center(child: Text('Error', style: TextStyle(fontSize: 25, color: Colors.white)));
         }
     );
   }
 
-  // late QuerySnapshot searchSnapshot;
-  //
-  // Widget searchList(BuildContext globalContext) {
-  //   return ListView.builder(
-  //       itemCount: searchSnapshot.docs.length,
-  //       shrinkWrap: true,
-  //       itemBuilder: (context, index) {
-  //         return getFirestoreRequest(
-  //           longitude: searchSnapshot.docs[index]["longitude"],
-  //           latitude: searchSnapshot.docs[index]["latitude"],
-  //         );
-  //       });
-  // }
 
   Widget getFirestoreRequest (latitude, longitude){
     double? latitude;
@@ -109,10 +96,16 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   // }
 
   @override
+  void initState() {
+    getLocation();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
                                                                 ///
     // var _kInitialPosition = CameraPosition(target: LatLng(widget.latitude!.toDouble(), widget.longitude!.toDouble()), zoom: 11.0, tilt: 0, bearing: 0);
-    getLocation();
+    ///getLocation();
     //var _kInitialPosition = capPos();
     return Scaffold(
       appBar: AppBar(
@@ -135,6 +128,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   }
   _onMapCreated (GoogleMapController controller){
     setState(() {
+      Marker(infoWindow: InfoWindow(title: 'user'), markerId: MarkerId('<MARKER_ID>'), position: LatLng(widget.latitude!.toDouble(), widget.longitude!.toDouble()));
       mapController = controller;
     });
   }
