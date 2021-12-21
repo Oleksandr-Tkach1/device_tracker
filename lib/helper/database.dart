@@ -10,7 +10,7 @@ class DatabaseMethods{
 
   getUserByData() async {
     return await FirebaseFirestore.instance
-        .collection('ChatRoom')
+        .collection('Location')
         .get();
   }
 
@@ -29,7 +29,7 @@ class DatabaseMethods{
 
   createChatRoom(String chatRoomId, chatRoomMap) {
     FirebaseFirestore.instance
-        .collection('ChatRoom')
+        .collection('Location')
         .doc(chatRoomId)
         .set(chatRoomMap)
         .catchError((e) {

@@ -38,6 +38,8 @@ dependencies:
   background_location: ^0.8.1
   workmanager: ^0.4.1
   google_maps_flutter: ^2.1.1
+  connectivity: ^3.0.6
+  overlay_support: ^1.2.1
 
 dev_dependencies:
   flutter_test:

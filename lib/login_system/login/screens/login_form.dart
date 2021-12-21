@@ -1,3 +1,4 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:device_tracker/authentication_bloc/authentication_bloc.dart';
 import 'package:device_tracker/authentication_bloc/authentication_event.dart';
 import 'package:device_tracker/helper/device_inf.dart';
@@ -8,6 +9,7 @@ import 'package:device_tracker/login_system/login/bloc/login_state.dart';
 import 'package:device_tracker/login_system/login/button/create_account_button.dart';
 import 'package:device_tracker/login_system/login/button/login_button.dart';
 import 'package:device_tracker/repository/user_repository.dart';
+import 'package:device_tracker/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,6 +25,7 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
+  bool _isObscure = true;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   DeviceInfo deviceInfo = DeviceInfo();
@@ -137,10 +140,16 @@ class _LoginFormState extends State<LoginForm> {
                     decoration: InputDecoration(
                       icon: Icon(Icons.lock),
                       labelText: 'Password',
+                      suffixIcon: IconButton(
+                        icon: Icon(_isObscure ? Icons.visibility : Icons.visibility_off), onPressed: () { setState(() {
+                          _isObscure = !_isObscure;
+                        }); },
+                      ),
                     ),
-                    obscureText: true,
+                    obscureText: _isObscure,
                     autovalidate: true,
                     autocorrect: false,
+
                     validator: (_) {
                       return !state.isPasswordValid ? 'Invalid Password' : null;
                     },
@@ -192,5 +201,14 @@ class _LoginFormState extends State<LoginForm> {
         password: _passwordController.text,
       ),
     );
+  }
+
+  void showConnectivitySnackBar(ConnectivityResult result) {
+    final hasInternet = result != ConnectivityResult.none;
+    final message = hasInternet
+        ? 'You have again ${result.toString()}'
+        : 'You have not internet';
+    final color = hasInternet ? Colors.green : Colors.red;
+    Utils.showTopSnackBar(message, color);
   }
 }
