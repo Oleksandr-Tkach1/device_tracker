@@ -1,6 +1,9 @@
 import 'dart:async';
 import 'package:background_location/background_location.dart';
 import 'package:device_tracker/%20home_page/home_screen.dart';
+import 'package:device_tracker/google_map/bloc_google_map/google_map_bloc.dart';
+import 'package:device_tracker/google_map/bloc_google_map/google_map_event.dart';
+import 'package:device_tracker/google_map/todos_repository.dart';
 import 'package:device_tracker/home_screens/splash_screen.dart';
 import 'package:device_tracker/login_system/login/screens/login_screen.dart';
 import 'package:device_tracker/services/background_workmanager.dart';
@@ -43,8 +46,13 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => _authenticationBloc,
+    return MultiBlocProvider(
+      //create: (context) => _authenticationBloc,
+      providers: [
+        BlocProvider(create: (_) => GoogleMapBloc(locationRepository: LocationRepository(),
+          )..add(LoadGoogleMap()),
+        ),
+      ],
       child: MaterialApp(
         home: BlocBuilder(
           bloc: _authenticationBloc,

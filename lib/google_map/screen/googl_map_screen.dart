@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:device_tracker/google_map/bloc_google_map/google_map_bloc.dart';
+import 'package:device_tracker/google_map/bloc_google_map/google_map_state.dart';
 import 'package:device_tracker/google_map/services/service.dart';
 import 'package:device_tracker/helper/database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class GoogleMapScreen extends StatefulWidget {
@@ -124,13 +127,26 @@ getExpenseItems(AsyncSnapshot<QuerySnapshot> snapshot) {
       appBar: AppBar(
         title: Text('Google Maps Demo'),
       ),
-      body: GoogleMap(
-        myLocationEnabled: true,
-        initialCameraPosition: _kInitialPosition,
-        //CameraPosition(target: LatLng(-122, 83),zoom: 11.0,tilt: 0,bearing: 0),
-        //markers: searchList(globalContext),
-        onMapCreated: _onMapCreated,
-      ),
+      body: BlocBuilder<GoogleMapBloc, GoogleMapState>(
+        builder: (context, state) {
+          if (state is GoogleMapLoading){
+            return Center(child: CircularProgressIndicator(),);
+          }
+          if (state is GoogleMapLoaded){
+            ///
+            return GoogleMap(
+              myLocationEnabled: true,
+              //initialCameraPosition: _kInitialPosition,
+              initialCameraPosition: CameraPosition(target: LatLng(state.locationModel), zoom: 11.0, tilt: 0, bearing: 0),
+              //state.locationModel,
+              //CameraPosition(target: LatLng(-122, 83),zoom: 11.0,tilt: 0,bearing: 0),
+              //markers: searchList(globalContext),
+              onMapCreated: _onMapCreated,
+            );
+          }else{
+            return Text('Received been error');
+          }
+      }),
     );
   }
 

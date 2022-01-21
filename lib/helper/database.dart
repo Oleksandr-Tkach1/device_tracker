@@ -27,11 +27,11 @@ class DatabaseMethods{
     });
   }
 
-  createChatRoom(String chatRoomId, chatRoomMap) {
+  createChatRoom(String chatRoomId, location) {
     FirebaseFirestore.instance
         .collection('Location')
         .doc(chatRoomId)
-        .set(chatRoomMap)
+        .set(location)
         .catchError((e) {
       print(e.toString());
     });

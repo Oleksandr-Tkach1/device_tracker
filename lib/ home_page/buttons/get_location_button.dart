@@ -19,14 +19,6 @@ class GetLocationButton extends StatelessWidget {
       //TODO
       onPressed: () async {
 
-    // showDialog(
-    // context: context,
-    // builder: (BuildContext context)
-    // {
-    //   return locationRequest(context, TextRoomId);
-    // }
-    // );
-
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => GoogleMapScreen()));
 

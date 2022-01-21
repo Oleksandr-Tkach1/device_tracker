@@ -5,11 +5,11 @@ firebaseDataTransfer ({required longitude, required latitude}){
   var chatRoomId = Uuid().v1();
   //List<double> location = [longitude, latitude];
 
-  Map<String, dynamic> chatRoomMap = {
+  Map<String, dynamic> location = {
     'latitude': latitude,
     'longitude': longitude,
     //'location': location,
     'chatRoomId': chatRoomId,
   };
-  DatabaseMethods().createChatRoom(chatRoomId, chatRoomMap);
+  DatabaseMethods().createChatRoom(chatRoomId, location);
 }

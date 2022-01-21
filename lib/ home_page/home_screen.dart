@@ -1,3 +1,4 @@
+import 'package:app_settings/app_settings.dart';
 import 'package:device_tracker/%20home_page/buttons/camera_button.dart';
 import 'package:device_tracker/%20home_page/buttons/get_location_button.dart';
 import 'package:device_tracker/authentication_bloc/authentication_bloc.dart';
@@ -23,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
+    AppSettings.openLocationSettings();
     Workmanager().registerPeriodicTask(
       "1",
       simplePeriodicTask,
