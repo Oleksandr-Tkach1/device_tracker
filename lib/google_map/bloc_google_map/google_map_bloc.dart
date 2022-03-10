@@ -8,7 +8,7 @@ class GoogleMapBloc extends Bloc<GoogleMapEvent, GoogleMapState>{
   final LocationRepository _locationRepository;
   StreamSubscription? _locationSubscription;
 
-  GoogleMapBloc({required LocationRepository locationRepository }) : _locationRepository = locationRepository, super(GoogleMapLoading());
+  GoogleMapBloc({required LocationRepository locationRepository}) : _locationRepository = locationRepository, super(GoogleMapLoading());
 
   Stream<GoogleMapState> mapEventToState(GoogleMapEvent event) async*{
     if (event is LoadGoogleMap){
@@ -21,7 +21,7 @@ class GoogleMapBloc extends Bloc<GoogleMapEvent, GoogleMapState>{
 
   Stream<GoogleMapState> _mapLoadGoogleMapToState() async*{
     _locationSubscription?.cancel();
-    _locationSubscription = _locationRepository.getLocation().listen(
+      _locationSubscription = _locationRepository.getLocation().listen(
           (location) =>
               add(UpdateGoogleMap(location),
               ),

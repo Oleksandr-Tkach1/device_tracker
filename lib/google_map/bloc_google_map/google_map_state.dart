@@ -12,7 +12,7 @@ class GoogleMapLoading extends GoogleMapState{}
 
 class GoogleMapLoaded extends GoogleMapState{
   final List<LocationModel> locationModel;
-  GoogleMapLoaded({this.locationModel = const <LocationModel>[]});
+  GoogleMapLoaded({this.locationModel = const <LocationModel>[]}) : assert(locationModel != null);
 
   List <Object> get props => [locationModel];
 }
