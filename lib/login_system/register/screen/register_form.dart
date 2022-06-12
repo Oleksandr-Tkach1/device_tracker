@@ -123,7 +123,7 @@ class _RegisterFormState extends State<RegisterForm> {
                         labelText: 'The name of your device has already been entered here',
                       ),
                       autocorrect: false,
-                      autovalidate: true,
+                      autovalidateMode: AutovalidateMode.always,
                       validator: (_) {
                         return controller == null ? 'Invalid User name' : null;
                       },
@@ -135,7 +135,7 @@ class _RegisterFormState extends State<RegisterForm> {
                         labelText: 'Email',
                       ),
                       autocorrect: false,
-                      autovalidate: true,
+                      autovalidateMode: AutovalidateMode.always,
                       validator: (_) {
                         return !state.isEmailValid ? 'Invalid Email' : null;
                       },
@@ -148,7 +148,7 @@ class _RegisterFormState extends State<RegisterForm> {
                       ),
                       obscureText: true,
                       autocorrect: false,
-                      autovalidate: true,
+                      autovalidateMode: AutovalidateMode.always,
                       validator: (_) {
                         return !state.isPasswordValid
                             ? 'Invalid Password'

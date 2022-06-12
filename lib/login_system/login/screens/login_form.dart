@@ -117,7 +117,7 @@ class _LoginFormState extends State<LoginForm> {
                       //deviceInfo.android.toString(),
                     ),
                     autocorrect: false,
-                    autovalidate: true,
+                    autovalidateMode: AutovalidateMode.always,
                     ///
                     // validator: (_) {
                     //   return !state.isEmailValid ? 'Invalid User name' : null;
@@ -129,7 +129,7 @@ class _LoginFormState extends State<LoginForm> {
                       icon: Icon(Icons.email),
                       labelText: 'Email',
                     ),
-                    autovalidate: true,
+                    autovalidateMode: AutovalidateMode.always,
                     autocorrect: false,
                     validator: (_) {
                       return !state.isEmailValid ? 'Invalid Email' : null;
@@ -147,7 +147,7 @@ class _LoginFormState extends State<LoginForm> {
                       ),
                     ),
                     obscureText: _isObscure,
-                    autovalidate: true,
+                    autovalidateMode: AutovalidateMode.always,
                     autocorrect: false,
 
                     validator: (_) {

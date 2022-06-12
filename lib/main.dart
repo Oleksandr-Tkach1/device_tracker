@@ -18,12 +18,17 @@ import 'authentication_bloc/simple_bloc_delegate.dart';
 import 'repository/user_repository.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  //WidgetsFlutterBinding.ensureInitialized();
+  //await Firebase.initializeApp();
   await BackgroundLocation.startLocationService();
-  await Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
-  Bloc.observer = SimpleBlocDelegate();
-  runApp(MyApp());
+  //await Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
+  BlocOverrides.runZoned(() {
+    runApp(MyApp());
+  },
+    blocObserver: SimpleBlocDelegate(),
+  );
+  //Bloc.observer = SimpleBlocDelegate();
+  // runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
