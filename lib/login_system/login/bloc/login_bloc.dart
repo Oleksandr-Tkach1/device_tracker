@@ -15,6 +15,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   LoginBloc({required this.userRepository}) : assert(userRepository != null), super(LoginState.empty()){
     on<EmailChanged>((event, emit) async{
+
       emit(state.update(isEmailValid: Validators.isValidEmail(event.email)));
     } transformer: debounceRestartable(LoginBloc.d));
     on<PasswordChanged>((event, emit) async{
