@@ -44,7 +44,6 @@ dependencies:
 
   #carp_background_location: ^3.0.1
   permission_handler: ^9.2.0
-
   app_settings: ^4.1.8
 
 dev_dependencies:
