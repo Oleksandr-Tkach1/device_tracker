@@ -58,8 +58,8 @@ class RegisterState {
   }
 
   RegisterState update({
-     bool? isEmailValid,
-     bool? isPasswordValid,
+    bool? isEmailValid,
+    bool? isPasswordValid,
   }) {
     return copyWith(
       isEmailValid: isEmailValid,

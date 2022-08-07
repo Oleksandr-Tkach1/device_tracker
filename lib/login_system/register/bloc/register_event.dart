@@ -4,7 +4,7 @@ import 'package:meta/meta.dart';
 @immutable
 abstract class RegisterEvent extends Equatable {
   const RegisterEvent([List props = const []]);
-      ///: super(props);
+///: super(props);
 }
 
 class EmailChanged extends RegisterEvent {

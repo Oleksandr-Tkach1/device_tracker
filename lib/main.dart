@@ -1,16 +1,13 @@
 import 'dart:async';
-import 'package:background_location/background_location.dart';
 import 'package:device_tracker/%20home_page/home_screen.dart';
 import 'package:device_tracker/google_map/bloc_google_map/google_map_bloc.dart';
 import 'package:device_tracker/google_map/bloc_google_map/google_map_event.dart';
 import 'package:device_tracker/google_map/todos_repository.dart';
 import 'package:device_tracker/home_screens/splash_screen.dart';
 import 'package:device_tracker/login_system/login/screens/login_screen.dart';
-import 'package:device_tracker/services/background_workmanager.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:workmanager/workmanager.dart';
 import 'authentication_bloc/authentication_bloc.dart';
 import 'authentication_bloc/authentication_event.dart';
 import 'authentication_bloc/authentication_state.dart';
@@ -18,17 +15,13 @@ import 'authentication_bloc/simple_bloc_delegate.dart';
 import 'repository/user_repository.dart';
 
 Future<void> main() async {
-  //WidgetsFlutterBinding.ensureInitialized();
-  //await Firebase.initializeApp();
-  await BackgroundLocation.startLocationService();
-  //await Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   BlocOverrides.runZoned(() {
     runApp(MyApp());
   },
     blocObserver: SimpleBlocDelegate(),
   );
-  //Bloc.observer = SimpleBlocDelegate();
-  // runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -44,7 +37,6 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    BackgroundLocation.setAndroidNotification();
     _authenticationBloc = AuthenticationBloc(userRepository: _userRepository);
     _authenticationBloc.add(AppStarted());
   }
@@ -52,10 +44,9 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      //create: (context) => _authenticationBloc,
       providers: [
         BlocProvider(create: (_) => GoogleMapBloc(locationRepository: LocationRepository(),
-          )..add(LoadGoogleMap()),
+        )..add(LoadGoogleMap()),
         ),
       ],
       child: MaterialApp(

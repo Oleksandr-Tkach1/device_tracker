@@ -20,7 +20,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  LocationInfo locationInfo = LocationInfo();
+  // LocationInfo locationInfo = LocationInfo();
 
   @override
   void initState() {

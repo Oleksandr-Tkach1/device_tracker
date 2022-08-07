@@ -89,7 +89,7 @@ AlertDialog locationRequest(BuildContext context, TextEditingController userPost
               child: Text('Apply'),
               onPressed: () {
                 Navigator.of(context).pop();
-               // sendMessageCameraAndGallery(_imageFile, context);
+                // sendMessageCameraAndGallery(_imageFile, context);
                 FocusScope.of(context).unfocus();
               }
           ),

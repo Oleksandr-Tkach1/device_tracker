@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class GetLocationButton extends StatelessWidget {
   final VoidCallback? _onPressed;
   TextEditingController TextRoomId = TextEditingController();
-  LocationInfo position = LocationInfo();
+  // LocationInfo position = LocationInfo();
 
   GetLocationButton({Key? key, VoidCallback? onPressed}): _onPressed = onPressed, super(key: key);
   @override
