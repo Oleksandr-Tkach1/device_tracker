@@ -13,12 +13,12 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
         final isSignedIn = await _userRepository.isSignedIn();
         if (isSignedIn) {
           final email = await _userRepository.getUser();
-          Authenticated(email!);
+          emit(Authenticated(email!));
         } else {
-          Unauthenticated();
+          emit(Unauthenticated());
         }
       } catch (_) {
-        Unauthenticated();
+        emit(Unauthenticated());
       }
     });
     on<LoggedIn>((event, emit) async{
