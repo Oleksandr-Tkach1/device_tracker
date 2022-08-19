@@ -3,8 +3,7 @@ import 'package:device_tracker/helper/device_inf.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
-creationOfACommonRoom ({required String deviceName, BuildContext? context}) {
-
+creationOfACommonRoom({required String deviceName, BuildContext? context}) {
   DeviceInfo deviceInfo = DeviceInfo();
   if (deviceName != deviceInfo.androidF) {
     //String chatRoomId = getChatRoomId(userName, Constants.myName);
@@ -30,7 +29,7 @@ creationOfACommonRoom ({required String deviceName, BuildContext? context}) {
     List<String> users = [deviceName, deviceInfo.androidF.toString()];
 
     Map<String, dynamic> chatRoomMap = {
-      'chatName': deviceName +', '+ deviceInfo.androidF.toString(),
+      'chatName': deviceName + ', ' + deviceInfo.androidF.toString(),
       'users': users,
       'chatRoomId': chatRoomId,
     };
