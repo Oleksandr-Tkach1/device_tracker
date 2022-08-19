@@ -15,8 +15,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
       try {
         final isSignedIn = await _userRepository.isSignedIn();
         if (isSignedIn) {
-          final email = await _userRepository.getUser();
-          emit(Authenticated(email!));
+          emit(Authenticated((await _userRepository.getUser())!));
         } else {
           emit(Unauthenticated());
         }
