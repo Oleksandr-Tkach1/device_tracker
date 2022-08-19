@@ -21,6 +21,8 @@ class Authenticated extends AuthenticationState {
 }
 
 class Unauthenticated extends AuthenticationState {
+  var deviceInfo;
+  Unauthenticated({this.deviceInfo});
   @override
   String toString() => 'Unauthenticated';
 }

@@ -12,8 +12,9 @@ import 'package:workmanager/workmanager.dart';
 
 class HomeScreen extends StatefulWidget {
   final String name;
+  var deviceInfo2;
 
-  HomeScreen({Key? key, required this.name}) : super(key: key);
+  HomeScreen({Key? key, required this.name, this.deviceInfo2}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();

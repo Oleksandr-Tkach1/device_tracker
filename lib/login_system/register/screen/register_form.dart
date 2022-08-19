@@ -35,7 +35,7 @@ class _RegisterFormState extends State<RegisterForm> {
     @override
     void initState() {
       super.initState();
-      deviceInfo.getModel();
+      deviceInfo.getDeviceInfo();
       _registerBloc = BlocProvider.of<RegisterBloc>(context);
       _emailController.addListener(_onEmailChanged);
       _passwordController.addListener(_onPasswordChanged);
@@ -114,7 +114,7 @@ class _RegisterFormState extends State<RegisterForm> {
                         LengthLimitingTextInputFormatter(8),
                       ],
                       controller:
-                      controller = TextEditingController()..text = deviceInfo.android.toString(),
+                      controller = TextEditingController()..text = deviceInfo.androidF.toString(),
                       //controller = TextEditingController()..text = widget.deviceName.toString(),
                       //controller = TextEditingController()..text = deviceInfo.android.toString(),
                       //controller,

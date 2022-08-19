@@ -1,4 +1,5 @@
 import 'package:connectivity/connectivity.dart';
+import 'package:device_tracker/%20home_page/home_screen.dart';
 import 'package:device_tracker/authentication_bloc/authentication_bloc.dart';
 import 'package:device_tracker/authentication_bloc/authentication_event.dart';
 import 'package:device_tracker/helper/device_inf.dart';
@@ -13,15 +14,23 @@ import 'package:device_tracker/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LoginForm extends StatefulWidget {
+class LoginForm extends StatefulWidget implements HomeScreen{
   final UserRepository _userRepository;
+  var deviceInfo1;
 
-  LoginForm({Key? key, required UserRepository userRepository})
-      : assert(userRepository != null),
-        _userRepository = userRepository,
+
+  LoginForm({Key? key, required UserRepository userRepository, required this.deviceInfo1})
+      : _userRepository = userRepository,
         super(key: key);
 
   State<LoginForm> createState() => _LoginFormState();
+
+  @override
+  // TODO: implement name
+  String get name => throw UnimplementedError();
+
+  @override
+  var deviceInfo2;
 }
 
 class _LoginFormState extends State<LoginForm> {
@@ -39,22 +48,18 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   void initState() {
-    deviceInfo.getModel();
-    super.initState();
     test();
-    setState(() {
-      test();
-      controller = TextEditingController()..text = deviceInfo.android.toString();
-    });
+    deviceInfo.getDeviceInfo();
+    super.initState();
     _loginBloc = BlocProvider.of<LoginBloc>(context);
     _emailController.addListener(_onEmailChanged);
     _passwordController.addListener(_onPasswordChanged);
   }
 
   ///
-   test() async{
+  Future<void> test() async{
     setState(() {
-      controller = TextEditingController()..text = deviceInfo.android.toString();
+      controller = TextEditingController()..text = deviceInfo.androidF.toString();
     });
    }
   ///
@@ -107,22 +112,35 @@ class _LoginFormState extends State<LoginForm> {
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 80),
                   ),
-                  TextFormField(
-                    // controller: controller = TextEditingController()..text = deviceInfo.android.toString(),
-                    controller: controller = TextEditingController()..text = deviceInfo.android.toString(),
-                    decoration: InputDecoration(
-                      icon: Icon(Icons.account_box_rounded),
-                      labelText: 'The name of your device has already been entered here',
-                      //widget.androidName.toString(),
-                      //deviceInfo.android.toString(),
-                    ),
-                    autocorrect: false,
-                    autovalidateMode: AutovalidateMode.always,
-                    ///
-                    // validator: (_) {
-                    //   return !state.isEmailValid ? 'Invalid User name' : null;
-                    // },
+
+                  ///
+                  // TextFormField(
+                  //   controller: controller = TextEditingController()..text = deviceInfo.android.toString(),
+                  //   decoration: InputDecoration(
+                  //     icon: Icon(Icons.account_box_rounded),
+                  //     labelText: 'The name of your device has already been entered here',
+                  //   ),
+                  //   autocorrect: false,
+                  //   autovalidateMode: AutovalidateMode.always,
+                  // ),
+                  ///
+
+                  FutureBuilder<String>(
+                    future: deviceInfo.getModelResult(),
+                    builder: (context, snapshot) {
+                      return
+                      TextFormField(
+                        controller: controller = TextEditingController()..text = snapshot.data == null ? '' : snapshot.data.toString(),
+                        decoration: InputDecoration(
+                          icon: Icon(Icons.account_box_rounded),
+                          labelText: 'The name of your device has already been entered here',
+                        ),
+                        autocorrect: false,
+                        autovalidateMode: AutovalidateMode.always,
+                      );
+                    },
                   ),
+
                   TextFormField(
                     controller: _emailController,
                     decoration: InputDecoration(

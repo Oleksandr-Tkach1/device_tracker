@@ -12,7 +12,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   /// Authentication repository that provides to the user the methods to sign-in
   /// with credentials and to sign-in with a Google account.
   final UserRepository userRepository;
-  static const debounceUsernameDuration = Duration(milliseconds: 300);
+  ///
+  static const debounceUsernameDuration = Duration(milliseconds: 1000);
 
   LoginBloc({required this.userRepository}) : assert(userRepository != null), super(LoginState.empty()){
     on<EmailChanged>((event, emit) async{

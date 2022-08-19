@@ -6,7 +6,7 @@ import 'package:uuid/uuid.dart';
 creationOfACommonRoom ({required String deviceName, BuildContext? context}) {
 
   DeviceInfo deviceInfo = DeviceInfo();
-  if (deviceName != deviceInfo.android) {
+  if (deviceName != deviceInfo.androidF) {
     //String chatRoomId = getChatRoomId(userName, Constants.myName);
     var chatRoomId = Uuid().v1();
 
@@ -27,10 +27,10 @@ creationOfACommonRoom ({required String deviceName, BuildContext? context}) {
     // }
 
     //});
-    List<String> users = [deviceName, deviceInfo.android.toString()];
+    List<String> users = [deviceName, deviceInfo.androidF.toString()];
 
     Map<String, dynamic> chatRoomMap = {
-      'chatName': deviceName +', '+ deviceInfo.android.toString(),
+      'chatName': deviceName +', '+ deviceInfo.androidF.toString(),
       'users': users,
       'chatRoomId': chatRoomId,
     };

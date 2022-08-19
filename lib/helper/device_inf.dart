@@ -2,20 +2,24 @@ import 'dart:io';
 import 'package:device_info/device_info.dart';
 
 class DeviceInfo {
-  String? android;
+  String? androidF;
+
   static final DeviceInfoPlugin deviceInform = DeviceInfoPlugin();
 
-  Future<String?> getModel() async {
+  Future<String> getModelResult() async {
+    var valueDeviceInfo = await getDeviceInfo();
+    print(valueDeviceInfo);
+    return valueDeviceInfo!;
+  }
+
+  Future<String?> getDeviceInfo() async {
     if (Platform.isAndroid) {
+      //var androidInfo = Text("iphone");
       var androidInfo = await deviceInform.androidInfo;
-      android = androidInfo.model.toString();
-      print('Running onFFFFF ${androidInfo.model.toString()}');
-      return android;
+      String android = androidInfo.model.toString();
+      print(androidInfo.model.toString());
+      return androidF;
     }
-    // else if (Platform.isIOS) {
-    //   var iosInfo = await deviceInfo.iosInfo;
-    //   ios = iosInfo.utsname.machine;
-    //   print('Running on ${iosInfo.utsname.machine}');
-    // }
+    return '';
   }
 }

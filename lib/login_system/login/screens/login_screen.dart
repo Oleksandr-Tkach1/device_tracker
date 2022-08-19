@@ -6,8 +6,9 @@ import 'login_form.dart';
 
 class LoginScreen extends StatefulWidget {
   final UserRepository _userRepository;
+  var deviceInfo;
 
-  LoginScreen({Key? key, required UserRepository userRepository}) : assert(userRepository != null), _userRepository = userRepository, super(key: key);
+  LoginScreen({Key? key, required UserRepository userRepository, this.deviceInfo}) : assert(userRepository != null), _userRepository = userRepository, super(key: key);
 
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -29,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: AppBar(title: Text('Login')),
       body: BlocProvider<LoginBloc>(
         create: (context) => _loginBloc,
-        child: LoginForm(userRepository: _userRepository),
+        child: LoginForm(userRepository: _userRepository, deviceInfo1: widget.deviceInfo),
       ),
     );
   }

@@ -3,6 +3,7 @@ import 'package:device_tracker/%20home_page/home_screen.dart';
 import 'package:device_tracker/google_map/bloc_google_map/google_map_bloc.dart';
 import 'package:device_tracker/google_map/bloc_google_map/google_map_event.dart';
 import 'package:device_tracker/google_map/todos_repository.dart';
+import 'package:device_tracker/helper/device_inf.dart';
 import 'package:device_tracker/home_screens/splash_screen.dart';
 import 'package:device_tracker/login_system/login/screens/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -17,6 +18,7 @@ import 'repository/user_repository.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  DeviceInfo();
   BlocOverrides.runZoned(() {
     runApp(MyApp());
   },
