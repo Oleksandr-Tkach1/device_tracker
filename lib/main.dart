@@ -19,9 +19,10 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   DeviceInfo();
-  BlocOverrides.runZoned(() {
-    runApp(MyApp());
-  },
+  BlocOverrides.runZoned(
+    () {
+      runApp(MyApp());
+    },
     blocObserver: SimpleBlocDelegate(),
   );
 }
@@ -47,8 +48,10 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => GoogleMapBloc(locationRepository: LocationRepository(),
-        )..add(LoadGoogleMap()),
+        BlocProvider(
+          create: (_) => GoogleMapBloc(
+            locationRepository: LocationRepository(),
+          )..add(LoadGoogleMap()),
         ),
       ],
       child: MaterialApp(
